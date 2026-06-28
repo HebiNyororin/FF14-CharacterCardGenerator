@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FF14 Character Card Generator - Create Your Adventurer Card</title>
+  <meta name="description" content="Create beautiful FFXIV character introduction cards. Upload your screenshot, choose your jobs, playstyle, and customize your card with premium themes and fonts.">
+  <link rel="stylesheet" href="style.css?v=3.5">
+  <!-- html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>FF14 Character Card Generator</h1>
+    <p>Create your own unique adventurer introduction card</p>
+  </header>
+
+  <main class="container">
+    <!-- Control Panel (Left) -->
+    <aside class="panel">
+      
+      <!-- Section 1: Basic Info -->
+      <section class="form-group">
+        <h2 class="section-title">Basic Info</h2>
+        
+        <div class="form-group">
+          <label for="input-name-ja">Character Name</label>
+          <input type="text" id="input-name-ja" placeholder="e.g. Name" value="Name">
+        </div>
+
+        <div class="row-2">
+          <div class="form-group">
+            <label for="select-dc">Data Center</label>
+            <select id="select-dc">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-world">World (Server)</label>
+            <select id="select-world">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Active Time</label>
+          <div class="row-2">
+            <div class="form-group">
+              <label for="input-time-start" style="font-size:0.72rem; opacity:0.7;">From</label>
+              <select id="input-time-start">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="input-time-end" style="font-size:0.72rem; opacity:0.7;">To</label>
+              <select id="input-time-end">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Image Upload -->
+      <section class="form-group">
+        <h2 class="section-title">Character Image</h2>
+        <div class="file-upload">
+          <div class="file-upload-btn">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            Upload Image
+          </div>
+          <input type="file" id="input-image" accept="image/*">
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+          Drag to reposition, use slider or scroll to zoom.
+        </p>
+      </section>
+
+      <!-- Section 3: Jobs -->
+      <section class="form-group">
+        <h2 class="section-title">Jobs</h2>
+        <div class="main-job-selector-info">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" style="color: #fbbf24;">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Click a selected job badge on the card to set it as your main job.
+        </div>
+
+        <div id="jobs-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Section 4: Playstyle -->
+      <section class="form-group">
+        <h2 class="section-title">Playstyle</h2>
+        <div class="playstyles-grid" id="playstyles-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Section 5: Customization -->
+      <section class="form-group">
+        <h2 class="section-title">Design</h2>
+        
+        <div class="form-group">
+          <label>Card Theme</label>
+          <div class="theme-selector" style="grid-template-columns: repeat(3, 1fr);">
+            <input type="radio" name="theme" id="theme-ethereal" value="theme-ethereal" checked class="theme-radio">
+            <label for="theme-ethereal" class="theme-btn">Ethereal Blue</label>
+
+            <input type="radio" name="theme" id="theme-dark" value="theme-dark" class="theme-radio">
+            <label for="theme-dark" class="theme-btn">Dark Gold</label>
+
+            <input type="radio" name="theme" id="theme-crystal" value="theme-crystal" class="theme-radio">
+            <label for="theme-crystal" class="theme-btn">Crystal Light</label>
+
+            <input type="radio" name="theme" id="theme-fire" value="theme-fire" class="theme-radio">
+            <label for="theme-fire" class="theme-btn">Ember Fire</label>
+
+            <input type="radio" name="theme" id="theme-pink" value="theme-pink" class="theme-radio">
+            <label for="theme-pink" class="theme-btn">Sweet Pink</label>
+
+            <input type="radio" name="theme" id="theme-green" value="theme-green" class="theme-radio">
+            <label for="theme-green" class="theme-btn">Aether Green</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Decoration</label>
+          <div class="theme-selector" style="grid-template-columns: repeat(4, 1fr);">
+            <input type="radio" name="decoration" id="deco-none" value="" checked class="theme-radio">
+            <label for="deco-none" class="theme-btn">None</label>
+
+            <input type="radio" name="decoration" id="deco-gothic" value="deco-gothic" class="theme-radio">
+            <label for="deco-gothic" class="theme-btn">Gothic</label>
+
+            <input type="radio" name="decoration" id="deco-neon" value="deco-neon" class="theme-radio">
+            <label for="deco-neon" class="theme-btn">Neon</label>
+
+            <input type="radio" name="decoration" id="deco-cyber" value="deco-cyber" class="theme-radio">
+            <label for="deco-cyber" class="theme-btn">Cyber</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Font</label>
+          <div class="font-selector" style="grid-template-columns: repeat(3, 1fr);">
+            <input type="radio" name="font" id="font-noto-sans" value="font-noto-sans" checked class="font-radio">
+            <label for="font-noto-sans" class="font-btn">Noto Sans</label>
+
+            <input type="radio" name="font" id="font-noto-serif" value="font-noto-serif" class="font-radio">
+            <label for="font-noto-serif" class="font-btn">Noto Serif</label>
+
+            <input type="radio" name="font" id="font-shippori" value="font-shippori" class="font-radio">
+            <label for="font-shippori" class="font-btn">Shippori</label>
+
+            <input type="radio" name="font" id="font-mplus" value="font-mplus" class="font-radio">
+            <label for="font-mplus" class="font-btn">M PLUS</label>
+
+            <input type="radio" name="font" id="font-cinzel" value="font-cinzel" class="font-radio">
+            <label for="font-cinzel" class="font-btn">Cinzel</label>
+
+            <input type="radio" name="font" id="font-medieval" value="font-medieval" class="font-radio">
+            <label for="font-medieval" class="font-btn">Medieval</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Panel Position</label>
+          <div class="font-selector" style="grid-template-columns: repeat(2, 1fr);">
+            <input type="radio" name="layout" id="layout-right" value="layout-right" checked class="font-radio">
+            <label for="layout-right" class="font-btn">&#8677; Right</label>
+
+            <input type="radio" name="layout" id="layout-left" value="layout-left" class="font-radio">
+            <label for="layout-left" class="font-btn">&#8676; Left</label>
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Preview & Actions (Right) -->
+    <section class="preview-container">
+      
+      <!-- Image Controls -->
+      <div class="image-controls">
+        <div class="slider-group">
+          <label for="slider-zoom">Image Zoom</label>
+          <input type="range" id="slider-zoom" min="0.1" max="3" step="0.05" value="1">
+        </div>
+        <p style="font-size: 0.75rem; color: var(--text-muted); text-align: center; margin: 0;">
+          Drag the image on the card to reposition it.
+        </p>
+      </div>
+
+      <!-- Card Preview -->
+      <div class="preview-scale-wrapper">
+        <div class="card-wrapper">
+          <div id="character-card" class="card theme-ethereal font-noto-sans">
+            <!-- Left: Character Image Area -->
+            <div class="card-left">
+              <div id="card-image-container" class="card-image-wrapper">
+                <img id="card-image" src="" alt="Character Image" style="display: none; transform-origin: top left;">
+                
+                <!-- Placeholder -->
+                <div id="image-placeholder" class="card-image-placeholder">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  <span>Upload Image</span>
+                  <span style="font-size: 0.7rem; opacity: 0.7;">(Drag & Scroll to adjust)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Character Details -->
+            <div class="card-right">
+              <!-- Header: Name & Server -->
+              <div class="card-header">
+                <span id="card-name-ja-val" class="card-name-ja">Name</span>
+                <div id="card-server-val" class="card-server">Mana / Chocobo</div>
+              </div>
+
+              <!-- Job List -->
+              <div class="card-jobs-container">
+                <div class="card-label">Jobs</div>
+                <div id="card-jobs-list-val" class="card-jobs-list">
+                  <span class="card-playstyle-badge" style="opacity: 0.5;">No jobs selected</span>
+                </div>
+              </div>
+
+              <!-- Playstyle -->
+              <div class="card-playstyle-container">
+                <div class="card-label">Playstyle</div>
+                <div id="card-playstyles-list-val" class="card-playstyles-list">
+                  <span class="card-playstyle-badge" style="opacity: 0.5;">Not set</span>
+                </div>
+              </div>
+
+              <!-- Active Time -->
+              <div class="card-active-time" id="card-active-time-val">
+                <div class="card-label">Active Time</div>
+                <div class="card-active-time-display">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.7; flex-shrink:0;">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  <span id="card-time-display">--:00 〜 --:00</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Copyright: カード底辺中央に絶対配置 -->
+            <div class="card-copyright">
+              © SQUARE ENIX
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download Button -->
+      <button id="btn-download" class="action-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+        </svg>
+        Save Card as Image
+      </button>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 FF14 Character Card Generator. All games, logos, and characters are trademarks of Square Enix.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
