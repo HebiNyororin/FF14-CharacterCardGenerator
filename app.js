@@ -537,9 +537,23 @@ document.querySelectorAll('input[name="theme"]').forEach(radio => {
 
 document.querySelectorAll('input[name="decoration"]').forEach(radio => {
   radio.addEventListener("change", (e) => {
-    characterCard.className = characterCard.className.replace(/\bdeco-\w+/g, "");
+    characterCard.className = characterCard.className.replace(/\bdeco-[\w-]+/g, "");
+    // Remove any existing frame overlay
+    const existingOverlay = characterCard.querySelector('.deco-frame-overlay');
+    if (existingOverlay) existingOverlay.remove();
+
     if (e.target.value) {
       characterCard.classList.add(e.target.value);
+
+      // If Gothic Lace, add frame image overlay
+      if (e.target.value.startsWith('deco-gothic-lace')) {
+        const frameImg = document.createElement('img');
+        frameImg.src = `assets/frame-${e.target.value}.png`;
+        frameImg.className = 'deco-frame-overlay';
+        frameImg.alt = '';
+        frameImg.draggable = false;
+        characterCard.appendChild(frameImg);
+      }
     }
   });
 });
