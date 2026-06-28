@@ -1,0 +1,38 @@
+
+/* =========================================
+   Global Glassmorphism Effect
+   ========================================= */
+
+/* Blurs the webpage background through any semi-transparent borders on the card */
+.card {
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* Blurs the card content through all decoration overlay layers */
+.card[class*="deco-"]::before,
+.card[class*="deco-"]::after {
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* Make simple borders semi-transparent so the glass effect shows through */
+.card.deco-simple-1 {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+.card.deco-simple-2 {
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  outline-color: rgba(56, 189, 248, 0.4) !important;
+}
+.card.deco-simple-3 {
+  border-color: rgba(226, 232, 240, 0.3) !important;
+}
+.card.deco-simple-4 {
+  border-left-color: rgba(56, 189, 248, 0.5) !important;
+  border-right-color: rgba(56, 189, 248, 0.5) !important;
+}
+
+/* Lower opacity of Cyberpunk borders to make them glassy */
+.card[class*="deco-cyber"] {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}

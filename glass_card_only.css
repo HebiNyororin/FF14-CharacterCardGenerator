@@ -1,0 +1,27 @@
+
+/* =========================================
+   Glassmorphism for Frames
+   ========================================= */
+
+/* Blurs the webpage background through any semi-transparent borders on the card */
+.card {
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  background-clip: padding-box; /* Ensures the background color doesn't bleed under the border */
+}
+
+/* Make simple borders semi-transparent so the glass effect shows through */
+.card.deco-simple-1 { border-color: rgba(255, 255, 255, 0.25) !important; }
+.card.deco-simple-2 { border-color: rgba(56, 189, 248, 0.4) !important; outline-color: rgba(56, 189, 248, 0.4) !important; }
+.card.deco-simple-3 { border-color: rgba(226, 232, 240, 0.3) !important; }
+.card.deco-simple-4 { border-left-color: rgba(56, 189, 248, 0.5) !important; border-right-color: rgba(56, 189, 248, 0.5) !important; }
+
+/* Lower opacity of Cyberpunk borders to make them glassy */
+.card[class*="deco-cyber"] { border-color: rgba(255, 255, 255, 0.2) !important; }
+
+/* For borders applied directly on the new CSS themes */
+.card.deco-css-gothic-lace-2 { border-color: rgba(139, 0, 0, 0.4) !important; }
+.card.deco-css-gothic-lace-3 { border-color: rgba(147, 112, 219, 0.4) !important; }
+.card.deco-css-steampunk-1 { border-color: rgba(74, 59, 44, 0.5) !important; }
+.card.deco-css-steampunk-2 { border-color: rgba(184, 115, 51, 0.5) !important; }
+.card.deco-css-steampunk-3 { border-color: rgba(47, 53, 59, 0.5) !important; }

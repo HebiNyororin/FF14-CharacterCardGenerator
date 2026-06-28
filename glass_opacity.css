@@ -1,0 +1,6 @@
+
+/* Force slight transparency so the glass blur is always visible */
+.card[class*="deco-"]::before,
+.card[class*="deco-"]::after {
+  opacity: 0.85 !important;
+}

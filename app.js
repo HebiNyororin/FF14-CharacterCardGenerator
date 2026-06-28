@@ -545,15 +545,7 @@ document.querySelectorAll('input[name="decoration"]').forEach(radio => {
     if (e.target.value) {
       characterCard.classList.add(e.target.value);
 
-      // If Gothic Lace, add frame image overlay
-      if (e.target.value.startsWith('deco-gothic-lace')) {
-        const frameImg = document.createElement('img');
-        frameImg.src = `assets/frame-${e.target.value}.png`;
-        frameImg.className = 'deco-frame-overlay';
-        frameImg.alt = '';
-        frameImg.draggable = false;
-        characterCard.appendChild(frameImg);
-      }
+
     }
   });
 });
